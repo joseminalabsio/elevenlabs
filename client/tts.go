@@ -84,6 +84,7 @@ func (c Client) TTSStream(ctx context.Context, w io.Writer, text, voiceID string
 
 func (c Client) requestTTS(ctx context.Context, params types.TTS, options types.SynthesisOptions) (io.ReadCloser, error) {
 	options.Clamp()
+	params.VoiceSettings = options
 	url := fmt.Sprintf(c.endpoint+"/v1/text-to-speech/%s", params.VoiceID)
 	if params.Stream {
 		url += "/stream"
